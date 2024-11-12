@@ -229,7 +229,11 @@ void UImpostorRenderTargetsManager::SceneCaptureSetup() const
 	ShowFlagsSettings.Add({"Fog", false});
 	ShowFlagsSettings.Add({"AtmosphericFog", false});
 
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 5
+	SceneCaptureComponent2D->SetShowFlagSettings(ShowFlagsSettings);
+#else
 	SceneCaptureComponent2D->ShowFlagSettings = ShowFlagsSettings;
+#endif
 
 	SceneCaptureComponent2D->bCaptureEveryFrame = true;
 	SceneCaptureComponent2D->CaptureSource = SCS_FinalColorHDR;
@@ -340,7 +344,11 @@ TMap<EImpostorBakeMapType, UTexture2D*> UImpostorRenderTargetsManager::SaveTextu
 		UTexture2D* NewTexture = FindObject<UTexture2D>(CreatePackage(*PackageName), *AssetName);
 		if (NewTexture)
 		{
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 5
+			RenderTarget->UpdateTexture(NewTexture, EConstructTextureFlags(CTF_Default | CTF_AllowMips), nullptr);
+#else
 			RenderTarget->UpdateTexture2D(NewTexture, RenderTarget->GetTextureFormatForConversionToTexture2D(), CTF_Default | CTF_AllowMips, nullptr);
+#endif
 		}
 		else
 		{
