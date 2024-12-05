@@ -1,6 +1,8 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "ImpostorLightingManager.h"
+#include "ImpostorData.h"
+#include "ImpostorBakerManager.h"
 #include "ImpostorBakerUtilities.h"
 #include "ImpostorComponentsManager.h"
 #include "Components/SkyLightComponent.h"
